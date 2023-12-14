@@ -1,5 +1,5 @@
 // экранирует символы, которые могут быть использованы для XSS-атак
-function sanitize(string) {
+function sanitize(string: any):void {
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -10,10 +10,10 @@ function sanitize(string) {
     };
     const reg = /[&<>"'/]/ig;
 
-    return string.replace(reg, (match)=>(map[match]));
+    // return string.replace(reg, (match: any) => (map[match]));
 }
 
-function stringTemplateEngine(templateWithData) {
+function stringTemplateEngine(templateWithData : any) {
     if ((templateWithData === undefined) || (templateWithData === null) || (templateWithData === false)) {
         return '';
     }
