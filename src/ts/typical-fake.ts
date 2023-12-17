@@ -27,5 +27,5 @@ function getApiData(): Promise<TypeResponse> {
     .then((response) => response.json())
 }
 
-getApiData().then((data) => console.log(data.products.images))
+getApiData().then((data) => console.log(data.products.price))
 
