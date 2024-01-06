@@ -2,24 +2,24 @@
 // Возьмите апи https://dummyjson.com/products. Смотрите в возвращаемые ручкой данные и напишите их тип.
 
 type TypeProducts = {
-    brand: String;
-    category: String;
-    description: String;
-    discountPercentage: Number;
-    id: Number;
-    images: String[];
-    price: Number;
-    title: String;
-    rating: String;
-    stock: String
-    thumbnail: String;
+    brand: string;
+    category: string;
+    description: string;
+    discountPercentage: number;
+    id: number;
+    images: string[];
+    price: number;
+    title: string;
+    rating: string;
+    stock: string
+    thumbnail: string;
 }
 
 type TypeResponse = {
-    limit: Number;
+    limit: number;
     products: TypeProducts;
-    skip: Number;
-    total: Number;
+    skip: number;
+    total: number;
 }
 
 function getApiData(): Promise<TypeResponse> {

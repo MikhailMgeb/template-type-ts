@@ -1,13 +1,42 @@
 /// шаблонизатор
+
+type DateCocktail = {
+    strImageSource: string;
+    strDrinkThumb: string;
+    strDrink: string;
+    strAlcoholic: string;
+    strInstructions: string;
+}
+
+type Attributes = {
+    href?: string;
+    style?: string;
+}
+
+type Content = {
+    block: string;
+    cls?: string;
+    content?: string;
+    attrs?: Attributes;
+}
+
 type TypeCocktail = {
-    [key: string]: string;
+    block: string;
+    cls?: string | string[];
+    attrs?: Attributes;
+    content?: TypeCocktail[] | string | Content;
 }
 
 type TypeSymbol = {
-    [key: string]: string;
+    readonly '&': '&amp;',
+    readonly '<': '&lt;',
+    readonly '>': '&gt;',
+    readonly '"': '&quot;',
+    readonly "'": '&#x27;',
+    readonly "/": '&#x2F;',
 }
 
-const cocktail = JSON.parse(`
+const cocktail: DateCocktail = JSON.parse(`
 {
     "idDrink": "11007",
     "strDrink": "Margarita",
@@ -63,7 +92,7 @@ const cocktail = JSON.parse(`
 }
 `);
 
-function cocktailTemplate(cocktail: TypeCocktail) {
+function cocktailTemplate(cocktail: DateCocktail): TypeCocktail {
     return {
         block: 'article',
         cls: 'cocktail',
@@ -106,8 +135,10 @@ function cocktailTemplate(cocktail: TypeCocktail) {
     };
 }
 
-function sanitize(string: string) {
-    const map:TypeSymbol = {
+cocktailTemplate(cocktail);
+
+function sanitize(string) {
+    const map: TypeSymbol = {
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
@@ -117,10 +148,10 @@ function sanitize(string: string) {
     };
     const reg = /[&<>"'/]/ig;
 
-    return string.replace(reg, (match: string):string => (map[match]));
+    return string.replace(reg, (match) => (map[match]));
 }
 
-function stringTemplateEngine(templateWithData) {
+function stringTemplateEngine(templateWithData: TypeCocktail | boolean):string {
     if ((templateWithData === undefined) || (templateWithData === null) || (templateWithData === false)) {
         return '';
     }
@@ -156,6 +187,7 @@ function stringTemplateEngine(templateWithData) {
     tag += '>';
 
     tag += stringTemplateEngine(templateWithData.content);
+
 
     tag += `</${templateWithData.block}>`;
 
